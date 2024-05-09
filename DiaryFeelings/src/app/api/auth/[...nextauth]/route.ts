@@ -3,6 +3,7 @@ import NextAuth from 'next-auth/next'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
 const handler = NextAuth({
+    secret: 'xvdZs7wYWGQ8MsJx0LqD', //->이 부분 추후 .env에 저장하여 사용하도록 바꿔야 함
     providers: [
         CredentialsProvider({
             name: 'Credentials',
@@ -61,7 +62,6 @@ const handler = NextAuth({
             // session.refreshToken = token.refreshToken
             // session.user.id = token.user.pk
             // session.user.username = token.user.username
-            console.log({ ...session, ...token })
             return { ...session, ...token }
         },
     },

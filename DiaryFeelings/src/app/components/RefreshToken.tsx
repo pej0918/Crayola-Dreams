@@ -9,28 +9,24 @@ const RefreshToken = () => {
         if (!session) return
         console.log('check token...')
 
-        const token = await axios.post(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/token`,
-            {},
+        const res = await fetch(
+            'http://43.202.125.125:8000/dj-rest-auth/token/refresh',
             {
+                method: 'POST',
                 headers: {
+                    'Content-Type': 'application/json',
                     Authorization: `Bearer ${session?.accessToken}`,
-                    refreshToken: `${session?.refreshToken}`,
                 },
+                body: JSON.stringify({ refresh: refresh_token }),
             },
         )
-        const result = token.data
-        if (result.status === 'error') {
-            if (result.result === 'signout') {
-                alert('다시 로그인해 주세요.')
-                signOut()
-            }
-            if (result.result === 'No Authorization') {
-                alert('접근할 수 없습니다.')
-                signOut()
-            }
-        } else if (result.status === 'ok') {
-            if (session) session.accessToken = result.result.token
+
+        const result = await res.json()
+        if (!res.ok) {
+            alert('다시 로그인해 주세요.')
+            signOut()
+        } else if (res.ok) {
+            if (session) session.accessToken = result.access
         }
     }
     useEffect(() => {

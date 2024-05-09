@@ -46,7 +46,7 @@
     "mysql": "^2.18.1",
     "mysql2": "^3.6.3",
     "next": "^14.0.3",
-    "next-auth": "^4.24.4",
+    "next-auth": "^4.24.7",
     "next-connect": "^1.0.0",
     "next-themes": "^0.2.1",
     "node-fetch": "^3.3.2",
