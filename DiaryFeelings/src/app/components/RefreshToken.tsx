@@ -10,14 +10,14 @@ const RefreshToken = () => {
         console.log('check token...')
 
         const res = await fetch(
-            'http://43.202.125.125:8000/dj-rest-auth/token/refresh',
+            'http://43.202.125.125:8000/dj-rest-auth/token/refresh/',
             {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${session?.accessToken}`,
                 },
-                body: JSON.stringify({ refresh: refresh_token }),
+                body: JSON.stringify({ refresh: session?.accessToken }),
             },
         )
 
