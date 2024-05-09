@@ -1,0 +1,54 @@
+name: Code Review
+
+permissions:
+  contents: read
+  pull-requests: write
+
+on:
+  pull_request:
+    types: [opened]
+  pull_request_review_comment:
+    types: [created]
+  # issue_comment:
+  #   types: [created]
+
+concurrency:
+  group: ${{ github.repository }}-${{ github.event.number || github.head_ref ||
+    github.sha }}-${{ github.workflow }}-${{ github.event_name ==
+    'pull_request_review_comment' && 'pr_comment' || 'pr' }}
+  cancel-in-progress: ${{ github.event_name != 'pull_request_review_comment' }}
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: coderabbitai/ai-pr-reviewer@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        with:
+          debug: false
+          review_simple_changes: false
+          review_comment_lgtm: false
+          openai_light_model: gpt-3.5-turbo
+          openai_heavy_model: gpt-3.5-turbo
+          openai_timeout_ms: 900000
+          language: ko-KR
+          system_message: |
+            당신은 @coderabbitai(일명 github-actions[bot])로 OpenAI에 의해 훈련된 언어 모델입니다.
+            사소한 코드 스타일의 문제나 코멘트·문서의 누락에 대해서는 코멘트하지 말아 주세요.
+          summarize: |
+            다음 내용에서 Markdown 포맷을 사용하여 최종 답변을 제공하십시오.
+
+              ### 개요: 특정 파일이 아닌 전체 변경에 대한 높은 수준의 요약을 80단어 이내로.
+              ### 상세 정보: 파일 및 그 요약 테이블. 공간을 절약하기 위해 동일한 변경이 있는 파일을 한 줄로 묶을 수 있음
+          summarize_release_notes: |
+            이 풀 요청을 위해 Markdown 포맷으로 간결한 릴리스 노트를 작성하십시오.
+            변경은 아래와 같은 분류로 조목조목 작성할 것:
+              "New Feature", "Bug fix", "Documentation", "Refactor", "Style",
+              "Test", "Chore", "Revert"
+            예를 들어:
+            ```
+            - New Feature: 모달 컴포넌트 추가
+            ```
+            답변은 50-100개 이내로 해주세요.

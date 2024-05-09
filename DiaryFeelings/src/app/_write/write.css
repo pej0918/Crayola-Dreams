@@ -1,0 +1,174 @@
+/* whole box */
+.write-box {
+  display: flex;
+}
+
+/*  -- SIDEBAR START  -- */
+/* sidebar content list */
+.write-sidebar {
+  width: 60px;
+  height: 100vh;
+  border-color: lightgray;
+  border-width: 0 1px 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  float: left;
+  padding: 20px 10px 10px 10px;
+  position: fixed;
+}
+
+.side-img {
+  width: 40px;
+  height: 40px;
+
+  & + & {
+    margin-top: 10px;
+  }
+}
+
+/* open slide when clicked */
+.click-sidebar {
+  width: 400px;
+  height: 100vh;
+  background-color: lightgrey;
+  margin-left: 60px;
+}
+
+/* slide close button */
+.sidebar-close {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 10px 0 10px;
+}
+
+.sidebar-close img {
+  width: 30px;
+  height: 35px;
+}
+
+.side-cont-name {
+  text-align: center;
+  margin: 20px 0 50px 0;
+  color: lightslategray;
+}
+
+.sidebar-content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.sidebar-content img {
+  width: 120px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #000000;
+  border-radius: 20px;
+}
+
+/* -- SIDEBAR END -- */
+
+/* -- WRITE TITLE, CONTENT START -- */
+/* whole write container */
+.write-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  float: right;
+}
+
+/* emtion, date, title part */
+.write-header {
+  width: 50rem;
+  height: 10%;
+  border-color: lightgray;
+  border-width: 0 0 1px;
+  display: flex;
+  padding: 0 20px 10px 5px;
+  margin-top: 5rem;
+}
+
+/* select emtion */
+.img-box {
+  margin-right: 20px;
+}
+
+.write-select-img {
+  width: 100%;
+  height: 100%;
+}
+
+.write-img-list {
+  height: 100%;
+}
+
+/* date, title */
+.write-tit {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.write-tit textarea {
+  width: 100%;
+  padding: 10px 0px 10px 0px;
+  outline: none;
+  resize: none;
+  background: transparent;
+}
+
+/* select date */
+.write-date {
+  font-size: 15px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  display: inline-block;
+  caret-color: transparent;
+  background: transparent;
+}
+
+.write-date > input {
+  border: none;
+  outline: none;
+}
+
+/* write diary content*/
+.write-cont {
+  width: 50rem;
+  height: 80vh;
+  margin-top: 50px;
+  border: 1px solid lightgray;
+  padding: 20px;
+  text-align: start;
+}
+
+.write-cont textarea {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  resize: none;
+  background: transparent;
+}
+
+/* write button area */
+.write-btn-box {
+  position: absolute;
+}
+
+.write-btn {
+  position: fixed;
+  width: 120px;
+  height: 40px;
+  left: 83%;
+  top: 90%;
+  background: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 20px;
+  color: black;
+}
+
+select option {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+}

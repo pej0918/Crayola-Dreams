@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Roboto:wght@100&display=swap');
+
+/* 폰트들 */
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+    format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* 폰트들 끝 */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Bareun_hipi';
+  src: url('/public/Bareun_hipi.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'omyu_pretty';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2')
+    format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'RIDIBatang';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Ainmom';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/naverfont_01@1.0/Ainmom.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'KyoboHand';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ShinDongYupHandwriting-R';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/ShinDongYupHandwriting-R.woff2')
+    format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* 폰트들 끝 */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  border: 0px rgba(0, 0, 0, 0.265) solid;
+  font-family: 'Pretendard-Regular';
+  font-size: 16px;
+}
+
+html {
+  /* min-height: 140vh; */
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.searh-icon {
+  filter: invert(65%) sepia(18%) saturate(481%) hue-rotate(216deg)
+    brightness(100%) contrast(94%);
+}
+
+/* Relu Molu사이트 폰트지정  */
+.relu-font {
+  font-weight: 500;
+  font-size: 30px;
+  font-family: 'Caveat', cursive;
+}
+
+/* 모달창 애니메이션 */
+.animate-slidein {
+  animation-name: slidein;
+  animation-duration: 0.45s;
+  animation-fill-mode: both;
+  /* Keeps the element in the final state after animation */
+}
+
+/* 로그인 안 했을 때 div 애니메이션 */
+@keyframes fade-div {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.fade-div {
+  animation-name: fade-div;
+  animation-duration: 1s;
+}
+/* 로그인 안 했을 때 div 애니메이션 */
+
+@keyframes slidein {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* 로그인 안 했을 때 그림 흑백 전환 */
+html.light .main-dark {
+  display: none;
+}
+html.light .main-light {
+  display: flex;
+}
+html.dark .main-light {
+  display: none;
+}
+html.dark .main-dark {
+  display: flex;
+}
+/* 로그인 안 했을 때 그림 흑백 전환 */
+
+/* SVG, PNG 흰 색으로 강제로 변경*/
+.closeWhite {
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(167deg)
+    brightness(110%) contrast(101%);
+}
+/* SVG, PNG 흰 색으로 강제로 변경*/
