@@ -101,31 +101,90 @@ const Write = () => {
       alert('내용을 입력해 주세요.')
       return
     }
-    const formData = new FormData()
-    formData.append('title', titleRef.current.value)
-    formData.append('content', contentRef.current.value)
-    formData.append('id', session?.user?.id as string)
-    formData.append('name', session?.user?.name as string)
-    formData.append('weather', weather)
-    formData.append('emotion', value)
-    formData.append('datetime', date.toString())
-    formData.append('fonts', curFont.toString())
-    if (
-      imgRef.current &&
-      imgRef.current.files &&
-      imgRef.current.files.length > 0
-    ) {
-      formData.append('img', imgRef.current.files[0])
+    
+    try {
+
+      const response = await fetch(
+        'http://43.202.125.125:8000/diary/',
+        {
+          method :'POST',
+          headers: {
+            Authorization: `Bearer ${session?.accessToken}`,
+            'Content-Type':  'application/json'
+          },
+          body : JSON.stringify(
+            {
+              user: session.user.pk,
+              title: titleRef.current?.value,
+              content: contentRef.current?.value,
+              is_open: true,
+            }
+          )
+        }
+      )
+      const result = await response.json()
+      console.log(result)
+      console.log(result.id)//에러 발생
+      const response_m= await fetch(
+        `http://43.202.125.125:8000/diary_music/${result.id}/`,
+        {
+          method :'PUT',
+          headers: {
+            Authorization: `Bearer ${session?.accessToken}`,
+            'Content-Type':  'application/json'
+          },
+          body : JSON.stringify(
+            {
+              user: session.user.pk
+            }
+          )
+        }
+      )
+
+      const response_i= await fetch(
+        'http://43.202.125.125:8000/image/',
+        {
+          method :'POST',
+          headers: {
+            Authorization: `Bearer ${session?.accessToken}`,
+            'Content-Type':  'application/json'
+          },
+          body : JSON.stringify(
+            {
+              diary :result.id
+            }
+          )
+        }
+      )
+
+      const response_e= await fetch(
+        'http://43.202.125.125:8000/emotion/',
+        {
+          method :'POST',
+          headers: {
+            Authorization: `Bearer ${session?.accessToken}`,
+            'Content-Type':  'application/json'
+          },
+          body : JSON.stringify(
+            {
+		        diary :result.id
+            }
+          )
+        }
+      )
+
+      
+
+      if (response_i.status === 201) {
+        router.push(`/diary/${result.id}`)
+        console.log('success')
+        
+      } else {
+        console.error('Failed to create diary entry')
+      }
+    } catch (error) {
+      console.error('Error creating diary entry:', error)
     }
-    const result = await axios.post('/api/diary', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: `mlru ${session?.accessToken}`,
-      },
-    })
-    imgReset()
-    setUpLoading((prev) => false)
-    router.push(`/diary/${result.data.result.insertId}`)
   }
   return (
     <div className="relative w-[1280px] flex flex-col items-end p-[30px] relative rounded-md shadow-xl mt-[40px] dark:bg-[#474747]">
@@ -199,26 +258,14 @@ const Write = () => {
         placeholder="오늘은 무슨 일이 있었나요?"
       />
       <div className="w-full py-[10px] mt-[10px] flex items-center flex flex-col justify-center items-center">
-        <RadioGroup label="emotion" value={value} onChange={setValue}>
-          {emotionList.map((data, index) => (
-            <RadioEmo
-              key={index}
-              view={view}
-              value={value}
-              setView={setView}
-              emoHover={data[0]}
-              emotion={data[1]}
-            />
-          ))}
-        </RadioGroup>
         <div className="mt-[60px] w-full flex">
-          <div className="mr-[30px]">
+         <div className="mr-[30px]">
             <div className="w-[300px] h-[300px] rounded-md bg-gray-200 dark:bg-[#333] object-contain flex justify-center items-center overflow-hidden">
-              {imgUrl && (
+              {/*{imgUrl && (
                 <Image src={imgUrl} alt="preview" width={300} height={300} />
-              )}
+              )}*/}
             </div>
-            {!imgUrl ? (
+            {/*{imgUrl ? (
               <div
                 className="rounded-md mt-[15px] p-[5px] flex justify-center items-center bg-[#b2a4d4] cursor-pointer opacity-[0.8] hover:opacity-[1]"
                 onClick={() => {
@@ -233,7 +280,7 @@ const Write = () => {
                 onClick={imgReset}
               >
                 <span className="text-[20px] text-white">사진 지우기</span>
-              </div>
+              </div> 
             )}
             <input
               type="file"
@@ -241,8 +288,8 @@ const Write = () => {
               hidden={true}
               ref={imgRef}
               onChange={(e) => handleImgView(e)}
-            />
-          </div>
+          />*/}
+          </div> 
           <div className="w-full flex flex-col">
             <div className="relative mb-[5px] pb-[5px] rounded-md flex items-center">
               <div
